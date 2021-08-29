@@ -7,6 +7,8 @@ const sequelize = require('../config/connection');
 class Product extends Model {}
 
 // set up fields and rules for Product model
+// used https://www.codegrepper.com/code-examples/javascript/numeric+validation+in+sequelize+in+node+js
+// to get my isDecimal and isNumeric
 Product.init(
   {
     id: {
@@ -16,14 +18,14 @@ Product.init(
       autoIncrement: true
     },
     product_name: {
-      tpye: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     price: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10,2),
       allowNull: false,
       validate: {
-        // as decimal
+        isDecimal: true
       }
     },
     stock: {
@@ -31,7 +33,7 @@ Product.init(
       allowNull: false,
       defaultValue: 10,
       validate: {
-        // as numeric
+        isNumeric: true
       }
     }
   },
